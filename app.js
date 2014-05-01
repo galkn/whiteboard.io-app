@@ -63,8 +63,43 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
+function rand(min, max) {
+    return Math.floor(min + Math.random() * (max - min));
+}
+
+function _color() {
+    var h = rand(1, 360);
+    var s = rand(40, 60);
+    var l = rand(40, 70);
+    return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+}
+var users = [];
+
 io.sockets.on('connection', function (socket) {
-	socket.on("doSomething", function(data) {		
+	socket.on("draw", function(data) {
+		data._color = users.filter(function( obj ) {
+		    return obj.sessionid == data.sessionid;
+		});
+		data._color = data._color[0]["color"];
 		io.sockets.emit("resp", data);
+	});
+	
+	var color = _color();
+	users.push({color: color, sessionid: socket.id});
+	socket.broadcast.emit("new user", color);
+	
+	var existingColors = [];
+	for(var i in users) {
+		if(users[i]["sessionid"] != socket.id) {
+			existingColors.push(users[i]["color"]);
+		}
+	}
+	socket.emit("existing users", existingColors);
+	
+	socket.on('disconnect', function() {
+		users = users.filter(function( obj ) {
+		    return obj.sessionid !== socket.id;
+		});
+		socket.broadcast.emit("remove user", color);
 	});
 });

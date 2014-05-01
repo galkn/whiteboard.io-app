@@ -10,4 +10,17 @@ a {
   width: 200px;
   height: 200px;
   background: #00f;
+  cursor: pointer;
+  display: none;
+}
+#canvas {
+  border: 1px solid #888;
+}
+#users {
+  float: left;
+}
+.user {
+  display: block;
+  height: 10px;
+  width: 10px;
 }

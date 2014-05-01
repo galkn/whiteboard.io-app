@@ -2,3 +2,11 @@ extends layout
 
 block content
   #circle
+  p
+    a#dl(download="Canvas.png", href="#", title="Download") Download
+  p
+    button#undo(disabled="disabled") Undo
+  p
+    button#redo(disabled="disabled") Redo
+  #users
+  canvas#canvas(height="500", width="500")

@@ -1,22 +1,9 @@
 $(function() {
 	
-	function plugin() {
-		var socket = io.connect('http://localhost');
-		window.st = socket;
-		
-		var data = {
-			el: $("#circle"),
-			
-		}
-		
-		socket.emit('doSomething', data);
-	}
-	
 	window.socket = io.connect('http://localhost');
-	socket.on("resp", function(data) {
-		window.inTransit = false;
-		$(data.el).css({position: "fixed", top: data.y, left: data.x});
-		console.log(DeepDiff.diff(window.mutated, $(data.el)));
+	socket.on("resp", function(data) {		
+		console.log(data);
+		$("#" + data._id).attr("style", data._style);
 	});
 	
 	var isDragged = false;
@@ -31,31 +18,29 @@ $(function() {
 	});
 	$(document).mousemove(function(e) {
 		if(isDragged) {
-			if(!window.inTransit) {
-				e.preventDefault();
+			e.preventDefault();
 
-				drag_x = e.pageX - distance_in_x;
-				drag_y = e.pageY - distance_in_y;
-				
-				socket.emit('doSomething', {el: "#circle", x: drag_x, y: drag_y});
-				window.inTransit = true;
-			}
+			drag_x = e.pageX - distance_in_x;
+			drag_y = e.pageY - distance_in_y;
+			
+			circle.css({position: "fixed", top: drag_y, left: drag_x});
 		}
 	});
 	$(document).mouseup(function(e) {
 		isDragged = false;
 	});
+	//socket.emit('doSomething', {el: "#circle", x: drag_x, y: drag_y});
 	
 	
 	// select the target node
-	var target = document.querySelector('#circle');
-window.mutated;
+	var target = circle.get(0);
+	window.mutatedCircle;
 	// create an observer instance
 	var observer = new MutationObserver(function(mutations) {
 	  mutations.forEach(function(mutation) {
-	    //console.log(mutation);
-		//console.log($(mutation.target).css("left"));
-		window.mutated = mutation;
+		//window.mutated = mutation;
+		//window.mutatedCircle = mutation.target;
+		socket.emit('doSomething', {_id: mutation.target.id, _style: $(mutation.target).attr('style')});
 	  });    
 	});
 
@@ -64,6 +49,5 @@ window.mutated;
 
 	// pass in the target node, as well as the observer options
 	observer.observe(target, config);
-	
 	
 });
