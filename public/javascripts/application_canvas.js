@@ -64,6 +64,7 @@ $(function() {
 		currentLine = [];
 		undoneHistory = [];
 		recordCurrentLine = true;
+		$("#redo").attr("disabled", "disabled");
 	});
 	$(document).mousemove(function(e) {
 		if(isDragged) {
