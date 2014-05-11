@@ -1,0 +1,3 @@
+Whiteboard = function() {
+	
+}

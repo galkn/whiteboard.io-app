@@ -67,7 +67,7 @@ function rand(min, max) {
     return Math.floor(min + Math.random() * (max - min));
 }
 
-function _color() {
+function getColor() {
     var h = rand(1, 360);
     var s = rand(40, 60);
     var l = rand(40, 70);
@@ -76,15 +76,15 @@ function _color() {
 var users = [];
 
 io.sockets.on('connection', function (socket) {
-	socket.on("draw", function(data) {
-		data._color = users.filter(function( obj ) {
+	socket.on("drawLine", function(data) {
+		data.color = users.filter(function( obj ) {
 		    return obj.sessionid == data.sessionid;
 		});
-		data._color = data._color[0]["color"];
+		data.color = data.color[0]["color"];
 		io.sockets.emit("resp", data);
 	});
 	
-	var color = _color();
+	var color = getColor();
 	users.push({color: color, sessionid: socket.id});
 	socket.broadcast.emit("new user", color);
 	
