@@ -1,4 +1,4 @@
-socket.io-draw
+whiteboard.io-draw
 ==============
 
-Collaborative canvas drawing with Socket.io
+Collaborative canvas drawing using Socket.io.
