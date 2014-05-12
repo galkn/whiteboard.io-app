@@ -61,7 +61,7 @@
 			currentLine = [];
 			undoneHistory = [];
 			recordCurrentLine = true;
-			$(settings.redoBtn).attr("disabled", "disabled");
+			$(settings.redoBtn).addClass("disabled");
 		});
 		$(document).mousemove(function(e) {
 			if(isDragged) {
@@ -95,7 +95,7 @@
 
 			if(currentLine != null && currentLine.length > 0) {
 				history.push(currentLine);
-				$("#undo").removeAttr("disabled");
+				$("#undo").removeClass("disabled");
 				currentLine = [];
 			}
 		});
@@ -109,9 +109,9 @@
 						canvas.drawLine(history[i][j], socket);
 					}
 				}
-				$(settings.redoBtn).removeAttr("disabled");
+				$(settings.redoBtn).removeClass("disabled");
 				if(history.length == 0) {
-					$(settings.undoBtn).attr("disabled", "disabled");
+					$(settings.undoBtn).addClass("disabled");
 				}
 			}
 			return false;
@@ -126,7 +126,7 @@
 				history.push(segment);
 
 				if(undoneHistory.length == 0) {
-					$(settings.redoBtn).attr("disabled", "disabled");
+					$(settings.redoBtn).addClass("disabled");
 				}
 			}
 			return false;
@@ -151,4 +151,10 @@
 
 $(function() {
 	$("#canvas").whiteboard();
+	
+	function dlCanvas() {
+	    var dt = canvas.toDataURL('image/png');
+	    this.href = dt;
+	};
+	dl.addEventListener('click', dlCanvas, false);
 })

@@ -1,11 +1,11 @@
 extends layout
 
 block content
-  h1 Draw Something
-  #circle
+  img#draw_something(src="/images/b.png", alt="brush")
   div#controls
-    a#dl(download="Canvas.png", href="#", title="Download") Download
-    a#undo(disabled="disabled") Undo
-    a#redo(disabled="disabled") Redo
-  #users
-  canvas#canvas(height="5000", width="5000")
+    a#dl(download="Canvas.png", title="Download") Download
+    a#undo(href="#", title="Undo", class="disabled") Undo
+    a#redo(href="#", title="Redo", class="disabled") Redo
+  #ui
+    #users
+    canvas#canvas(height="500px", width="700px")

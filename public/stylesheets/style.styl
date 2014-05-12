@@ -1,23 +1,23 @@
 body
   padding: 50px
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
-  overflow: hidden
+  overflow: auto
+  
+html, body
+  width:  100%
+  height: 100%
+  margin: 0px
+  
 a
   color: #00B7FF
-  
-#circle
-  border-radius: 50%
-  width: 200px
-  height: 200px
-  background: blue
-  cursor: pointer
-  display: none
 
 #canvas
   border: 1px solid #888
-  position: absolute
-  top: 0
-  left: 0
+  display: block
+  
+#ui
+  margin-top: 55px
+  margin-left: 50px
 
 #users
   float: left
@@ -31,11 +31,16 @@ a
   position: relative
   z-index: 5
   
-#controls
+#draw_something, #controls
   position: absolute
   z-index: 5
-  top: 20px
-  left: 20px
+  top: 0
+  left: 0px
+  overflow: auto
+
+#controls
+  left: 100px
+  top: 35px
 
 #controls a
   float: left
@@ -49,10 +54,17 @@ a
 	-moz-border-radius: 20px 0 0 20px
 	-webkit-border-radius: 20px 0 0 20px
 	margin: 0
-	cursor: pointer !important
+	cursor: pointer 
+	border-right: 1px solid #fff
+
+#controls a.disabled
+  color: #eee
 
 #controls a:hover
   background: #ccc
+
+#controls a.disabled:hover
+  background: #ddd
 
 #controls #undo
   border-radius: 0px
