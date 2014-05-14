@@ -13,7 +13,7 @@ var app    = express()
   , http   = require('http')
   , server = http.createServer(app);
 
-server.listen(8080),
+server.listen(8080);
 
 require('whiteboard.io')(server);
 
