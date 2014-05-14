@@ -16,6 +16,7 @@
     "stylus": "0.42.3",
     "underscore": "1.6.0",
   	"socket.io": "0.9.16",
-  	"deep-diff": "~0.1.7"
+  	"deep-diff": "~0.1.7",
+  	"whiteboard.io": "0.0.1"
   }
 }
